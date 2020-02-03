@@ -18,7 +18,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'christoomey/vim-tmux-navigator'
 
 Plug 'morhetz/gruvbox'
-
+Plug 'mattn/emmet-vim'
 Plug 'HerringtonDarkholme/yats.vim' " TS Syntax
 
 " Initialize plugin system
