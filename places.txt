@@ -1,0 +1,14 @@
+BetterDiscord/themes
+fish
+helix
+hypr
+kitty
+mako
+pipewire
+rofi
+*spotifyd
+spotify-tui
+swaylock
+wallpapers
+waybar
+wlogout

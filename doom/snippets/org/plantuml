@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: plantuml
+# uuid: <puml
+# key: trigger-key
+# condition: t
+# --
+#+TITLE: Uml
+#+begin_src plantuml :file img/${0:file}.png :dir .
+!theme plain
+`%`$1
+#+end_src
+
+#+RESULTS:
+[[file:img/${1:file}]]

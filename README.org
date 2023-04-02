@@ -1,0 +1,29 @@
+#+title: Dotfiles for hyprland
+
+[[file:assets/end-result.png]]
+
+* Packages installed
+I have a lot of packages installed, and a lot of dependencies for them, so some
+of them maybe useless, but they can be found at packages.txt. To install them:
+
+#+begin_src txt
+yay -S (echo (cat packages | awk '{print $1}'))
+#+end_src
+
+
+* Config files
+There is also a lot of configuration under the hood, like setting up:
++ nwg-look with catppuccin
++ ssdm and autologin
++ grub with catppuccin
+
+
+At the end, just visit [[github.com/catppuccin/catppuccin]] and try get the apps that are not currently installed
+
+* Spotifyd
+This needs a file at ~.config/spotifyd/spotifyd.conf~ that contains this:
+#+begin_src yml
+[global]
+username = ??
+password = ??
+#+end_src
