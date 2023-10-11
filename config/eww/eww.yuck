@@ -1,0 +1,327 @@
+(defpoll time :interval "1s" "date '+ %H:%M:%S'")
+
+(defpoll battery-status :interval "1s" "cat /sys/class/power_supply/BAT0/status")
+
+(defpoll battery-level :interval "1s" "sh scripts/get-bat-capacity")
+
+(deflisten window :initial "..." "sh ~/.config/eww/scripts/get-window-title")
+
+(deflisten icon-path :initial "" "fish ~/.config/eww/scripts/geticon.fish")
+
+(defpoll date :interval "1s" "date '+%d/%m %A'")
+
+(defpoll sound-percentage :initial-value 5 :interval "1s" "wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print $2 * 100}'")
+
+(defpoll mic-percentage :initial-value 5 :interval "1s" "wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | awk '{print $2 * 100}'")
+
+(defpoll isMicMuted :initial-value "" :interval "1s" "wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | awk '{print $3 }'")
+
+(defpoll isMuted :initial-value "" :interval "1s" "wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print $3 }'")
+
+(defpoll workspaces-names :initial-value "1" :interval "1s" `hyprctl workspaces -j | jq '.[].id'`)
+
+(deflisten works :initial-value `{"workspaces": {}}` `fish scripts/workspace-manager.fish | python scripts/workspace_manager.py`)
+
+(defpoll WIFIICON :interval "1s" `scripts/check-network --icon`)
+(defpoll NETSTAT :interval "1s" `scripts/check-network --stat`)
+
+
+
+; workspaces
+
+(deflisten workspaces :initial "[]" "bash ~/.config/eww/scripts/get-workspaces")
+(deflisten current_workspace :initial "1" "bash ~/.config/eww/scripts/get-active-workspace")
+(defwidget workspaces []
+  (eventbox :onscroll "bash ~/.config/eww/scripts/change-active-workspace {} ${current_workspace}" :class "workspaces-widget"
+    (box :space-evenly true :class "workspaces"
+      (label :text "${workspaces}${current_workspace}" :visible false)
+      (for workspace in workspaces
+        (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}"
+          (box :class 
+          "workspace-entry ${workspace.id == current_workspace ? "current" : ""} ${workspace.windows > 0 ? "occupied" : "empty"}"
+            (label :text "${workspace.id}")
+            )
+          )
+        )
+      )
+    )
+  )
+
+  
+; utils
+(defwidget metric [label value ?onchange]
+  (box :orientation "h"
+       :class "metric"
+       :space-evenly false
+    (box :class "label" label)
+    (scale :min 0
+           :max 101
+           :active {onchange != ""}
+           :value value
+           :onchange onchange)))
+
+;
+(defwidget bar [] 
+  (centerbox (leftbar) (centerbar) (rightbar))
+)
+
+
+(defwidget centerbar [] 
+ (box  :class "centerbar" :spacing 5 :orientation "h" :space-evenly false  
+    (windowname)
+    )
+)
+
+(defwidget windowname [] 
+  (box  :spacing 5 :orientation "h" :space-evenly false 
+    (image :path icon-path :image-height 16)
+    (label :text "${window}" :limit-width 100)
+    )
+)
+
+
+(defwidget rightbar [] 
+  (box :class "rightbar" :spacing 5 :orientation "h" :space-evenly false :halign "end" 
+
+    ;(button :class "item" :onclick "eww open control-center" "Open control center")
+    (network)
+    (audio)
+    (battery)
+    )
+)
+
+(defwidget network [] (box :class "item" :orientation "h" :spacing 20 :space-evenly false
+(label :text WIFIICON)
+							(label  :text NETSTAT)))
+
+(defwidget audio [] (box :class "item" :space-evenly true :spacing 20 (sound) (mic)))
+
+(defwidget sound [] (box :class "sound" {
+    sound-percentage == 0 || isMuted != "" ? "🔇" : 
+      sound-percentage < 30 ? "${sound-percentage} 🔈" : 
+        sound-percentage < 70 
+        ? "${sound-percentage} 🔉"
+        : "${sound-percentage} 🔊"
+      }  
+  )
+)
+  
+(defwidget mic [] (box :class "mic" {
+    mic-percentage == 0 || isMicMuted != "" 
+    ? "🔇" 
+    : "${mic-percentage} 🎙️"
+      }  
+  )
+)
+
+(defwidget battery [] (box :class "item" (battery-metric)))
+
+
+
+(defwidget battery-metric [] (metric 
+   :label "${battery-status}"   
+  :value {"${battery-level}" == "" ? "100" : "${battery-level}"}
+  )
+)
+ 
+(defwidget leftbar []   (box 
+  :class "leftbar" :spacing 5 :orientation "h" :space-evenly false  
+    (time)
+    (date)
+    (workspaces)
+    )
+
+)
+
+
+(defwidget time [] 
+  (box :class "item" time))
+
+(defwidget date [] 
+ (box :class "item" date))
+
+(defwidget weather [] (box :class "item" "24º"))
+
+(defwindow bar
+  :exclusive true
+  :monitor 0
+  :windowtype "dock"
+  :stacking "bg"
+	:focusable false
+  :geometry (geometry :x "0%"
+                      :y "0%"
+                      :width "100%"
+                      :height "15px"
+                      :anchor "top center")
+  :reserve (struts :side "top" :distance "4%")
+  (bar))
+
+(defwidget power-vertical-bar [] 
+  (box :class "power-vertical-bar"
+    :orientation "v"
+    :spacing 15
+    :space-evenly true
+    :width 200
+    (button 
+      :class "close" 
+      :onclick "eww close control-center" 
+      "Close")
+    (button
+      :class "lock"
+      :onclick `swaylock`
+      ""
+      )
+    (button
+      :class "power-off"
+      :onclick `systemctl poweroff`
+      ""
+      )
+    (button
+      :class "suspend"
+      :onclick `systemctl suspend`
+      ""
+      )
+    (button
+      :class "reboot"
+      :onclick `systemctl reboot`
+      ""
+      )
+    (button
+      :class "logout"
+      :onclick `hyprctl dispatch exit 0`
+      ""
+      )
+    )
+  
+)
+
+(defpoll hour :interval "5s" "date '+ %H'")
+(defpoll minute :interval "1s" "date '+ %M'")
+
+(defpoll year :interval "1h" "date '+%Y'")
+(defpoll month :interval "1h" "date '+%m'")
+(defpoll day :interval "1m" "date '+%d'")
+(defpoll today :interval "1m" "date '+%A'")
+(defwidget cool-time [] 
+
+  (box :class "cool-date-time-gadget" 
+       :orientation "h"
+       :space-evenly true
+    (box :class "cool-time" 
+         :orientation "h"
+         :space-evenly false
+         :halign "center"
+      (label :text hour :class "hour")
+      (label :text "." :class "dot")
+      (label :text minute :class "minute")
+    )
+    (box :class "cool-date" 
+         :orientation "h"
+         :space-evenly false
+         :halign "center"
+      (label :text year :class "year")
+      (label :text "-" :class "dot")
+      (label :text month :class "month")
+      (label :text "-" :class "dot")
+      (label :text day :class "day")
+    )
+    (label :text today :class "today")
+  )
+)
+(defwidget control-center-time [] 
+  (box :spacing 15 :orientation "v" :space-evenly false :width 500
+    (cool-time)
+    (calendar 
+      :class "calendar" 
+      :width 500
+      :day 22
+      :month 9      
+      :year 2023
+      :show-details true
+      :show-day-names true
+      :show-week-numbers true
+      )
+  )
+)
+
+
+
+(defwidget cool-workspaces [] 
+  (scroll :hscroll true :vexpand true
+    (box :vexpand true :spacing 15 :class "cool-workspaces"
+      (for work in { works != "" ? jq(works, ".workspaces | to_entries") : "[]" }
+        (button :onclick "hyprctl dispatch workspace ${work.key}" 
+          :class {jq(works, ".active_workspace") == work.key ? "active-workspace" : "item"}
+        
+        (scroll :vscroll true :hexpand true :hscroll false
+          (box :hexpand true :spacing 2 :orientation "v" :space-evenly false
+          (label :text {work.key } :limit-width 30 :wrap true)
+          (for class in {jq(work.value, "[.[]]") }
+              (image :path {class != "" ? "/usr/share/icons/hicolor/scalable/apps/${class}.svg" : ""} :image-height 50)
+  
+          )
+        )
+        )
+        )
+      )
+    )
+  )
+)
+
+(defwidget cool-time-and-pills [] 
+  (box :space-evenly false
+  :spacing 15
+    (control-center-time) 
+    (label :text "Pills" :class "item" :width 400)
+  )
+)
+
+(defwidget control-center-other [] 
+  (box :space-evenly false
+  :spacing 15
+  :orientation "v"
+    (cool-time-and-pills)
+    (cool-workspaces)
+  ))
+
+(defwidget control-center [] 
+  (box :class "control-center" 
+       :spacing 15
+       :orientation "h"
+       :space-evenly false
+    (control-center-other)
+    (power-vertical-bar)
+  )
+)
+
+(defwindow control-center
+  :exclusive true
+  :monitor 0
+  :windowtype "dock"
+  :stacking "overlay"
+	:focusable false
+  :geometry (geometry :x "0"
+                      :y "0"
+                      :width "80%"
+                      :height "80%"
+                      :anchor "center")
+  :reserve (struts :side "top" :distance "4%")
+  (control-center))
+
+
+(defwindow cool-workspaces
+  :exclusive true
+  :monitor 0
+  :windowtype "dock"
+  :stacking "overlay"
+	:focusable false
+  :geometry (geometry :x "0"
+                      :y "0"
+                      :width "80%"
+                      :height "20%"
+                      :anchor "center")
+  :reserve (struts :side "top" :distance "4%")
+  (cool-workspaces))
+
+
+

@@ -12,12 +12,3 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-;; (add-to-list 'org-latex-classes
-;; '("ieeetran"
-;;      "\\documentclass[11pt]{ieeetran}"
-;;      ("\\section{%s}" . "\\section*{%s}")
-;;      ("\\subsection{%s}" . "\\subsection*{%s}")
-;;      ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-;;      ("\\paragraph{%s}" . "\\paragraph*{%s}")
-;;      ("\\subparagraph{%s}" . "\\subparagraph*{%s}")
-;;      ))

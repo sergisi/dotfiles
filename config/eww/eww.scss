@@ -1,0 +1,346 @@
+@import "mocha";
+
+* {
+  all: unset;
+  border-radius: 0;
+  font-family: Cartograph CF Nerd Font, monospace;
+  font-weight: bold;
+  font-size: 14px;
+  min-height: 0;
+}
+
+.centerbar {
+  margin: 3px;
+  background: $surface0;
+  padding: 0px 15px 0px 15px;
+  border-radius: 10px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: $crust;
+}
+
+.workspaces {
+  margin: 3px;
+  background: $surface0;
+  padding: 0px 15px 0px 15px;
+  border-radius: 10px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: $crust;
+}
+
+.occupied {
+  color: $text;
+}
+
+.workspace-entry {
+}
+
+.empty {
+  color: $crust;
+}
+
+.current {
+  color: $peach;
+}
+
+.leftbar {
+  margin: 3px;
+
+  .item {
+    background: $surface0;
+    padding: 0px 15px 0px 15px;
+    border-radius: 10px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: $crust;
+    color: $peach;
+  }
+}
+
+.rightbar {
+  margin: 3px;
+
+  .item {
+    background: $surface0;
+    padding: 0px 15px 0px 15px;
+    border-radius: 10px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: $crust;
+    color: $text;
+  }
+}
+
+.metric scale trough {
+  all: unset;
+  //background-color: #323232;
+  background-color: $blue;
+  border-radius: 50px;
+  min-height: 3px;
+  min-width: 30px;
+  margin-left: 8px;
+  margin-right: 30px;
+}
+.metric scale trough highlight {
+  all: unset;
+  //background-color: #D35D6E;
+  background-color: $text;
+  color: $flamingo;
+  border-radius: 4px;
+}
+
+.trayicon {
+  background-repeat: no-repeat;
+  background-size: 18px;
+  min-height: 18px;
+  min-width: 18px;
+  margin: 8px 0px 0px 0px;
+}
+
+.cool-workspaces {
+  background: rgba(0, 0, 0, 0);
+  .item {
+    background: $surface1;
+    border-radius: 4px;
+  }
+
+  .item:hover {
+    background: $text;
+    color: $surface0;
+    border-radius: 4px;
+    
+  }
+
+  .active-workspace {
+    background: $peach;
+    color: $surface0;
+    border-radius: 4px;
+  }
+
+}
+
+.control-center {
+  opacity: 0.99;
+
+
+  .item {
+    background: $surface0;
+    border-radius: 4px;
+  }
+
+  .item:hover {
+    background: $text;
+    color: $surface0;
+    border-radius: 4px;
+    
+  }
+
+  .active-workspace {
+    background: $peach;
+    color: $surface0;
+    border-radius: 4px;
+  }
+
+  .today {
+    color: $peach;
+    border-radius: 4px;
+  }
+
+  .power-vertical-bar {
+    background: rgba(0, 0, 0, 0);
+
+    .lock {
+      background-image: image(url("/home/sergi/.config/eww/images/lock.png"), $peach);
+      background-size: auto 100px;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    
+    .lock:hover {
+      background: $text;
+      background-image: image(url("/home/sergi/.config/eww/images/lock-hover.png"), $peach);
+      background-size: auto 100px;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+     .power-off {
+      background-image: image(url("/home/sergi/.config/eww/images/power-off.png"), $peach);
+      background-size: auto 100px;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    
+    .power-off:hover {
+      background: $text;
+      background-image: image(url("/home/sergi/.config/eww/images/power-off-hover.png"), $peach);
+      background-size: auto 100px;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+
+    .suspend {
+      background-image: image(url("/home/sergi/.config/eww/images/suspend.png"), $peach);
+      background-size: auto 100px;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    
+    .suspend:hover {
+      background: $text;
+      background-image: image(url("/home/sergi/.config/eww/images/suspend-hover.png"), $peach);
+      background-size: auto 100px;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+
+    .reboot {
+      background-image: image(url("/home/sergi/.config/eww/images/reboot.png"), $peach);
+      background-size: auto 100px;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    
+    .reboot:hover {
+      background: $text;
+      background-image: image(url("/home/sergi/.config/eww/images/reboot-hover.png"), $peach);
+      background-size: auto 100px;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    .logout {
+      background-image: image(url("/home/sergi/.config/eww/images/logout.png"), $peach);
+      background-size: auto 100px;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    
+    .logout:hover {
+      background: $text;
+      background-image: image(url("/home/sergi/.config/eww/images/logout-hover.png"), $peach);
+      background-size: auto 100px;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    .item {
+      color: $peach;
+      background: $surface1;
+    }
+
+    .item:hover {
+      background: $peach;
+      color: $surface1;
+    }
+
+    .close {
+      background: $red;
+      color: $overlay0;
+      border-radius: 4px;
+    }
+
+    .close:hover {
+      color: $red;
+      background: $overlay0;
+      border-radius: 4px;
+    }
+  }
+
+  .power-vertical {
+    background: $overlay1;
+    color: $text;
+    border-radius: 4px;
+  }
+
+  .calendar {
+    padding: 10px;
+    background: $surface1;
+    border-radius: 4px;
+    font: 32px "Cantarell Regular";
+
+    .button {
+      color: $peach;
+    font: 32px "Cantarell Regular";
+    }
+
+    :selected {
+      color: $peach;
+    }
+
+    .highlight {
+      color: $subtext1;
+    }
+
+    :backdrop {
+      color: $green;
+    }
+
+    :indeterminate {
+      color: $subtext0;
+    }
+  }
+
+
+  .cool-date-time-gadget {
+    padding: 10;
+    background: $surface1;
+    border-radius: 4px;
+
+    .separator {
+      background: $pink;
+    }
+    .cool-time {
+      .hour {
+        font: 58px "Monospace";
+        color: $green;
+      }
+
+      .minute {
+        font: 58px "Monospace";
+        color: $lavender;
+      }
+
+      .dot {
+        font: 58px "Monospace";
+        color: $pink;
+      }
+    }
+
+    .cool-date {
+      .year {
+        font: 58px "Monospace";
+        color: $green;
+      }
+
+      .month {
+        font: 58px "Monospace";
+        color: $peach;
+      }
+
+      .day {
+        font: 58px "Monospace";
+        color: $lavender;
+      }
+
+      .dot {
+        font: 58px "Monospace";
+        color: $pink;
+      }
+    }
+
+    .today {
+      color: $peach;
+      font: 58px "Monospace";
+    }
+  }
+}
+
