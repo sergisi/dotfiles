@@ -2,4 +2,5 @@
 🖥 Window,bash /home/sergi/.config/rofi/scripts/screenshot.sh window
 🖥 Area,bash /home/sergi/.config/rofi/scripts/screenshot.sh area
 🖥 Monitor,bash /home/sergi/.config/rofi/scripts/screenshot.sh output
-🍑 wifi, fish /home/sergi/.config/rofi/scripts/nm-rofi.fish
+wifi, fish /home/sergi/.config/rofi/scripts/nm-rofi.fish
+theme, bash /home/sergi/.config/rofi/scripts/rofi-theme.fish

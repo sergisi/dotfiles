@@ -1,4 +1,4 @@
-@import "mocha";
+@import "/home/sergi/.config/palm-scheme/current-theme/theme.scss";
 
 * {
   all: unset;
@@ -11,6 +11,7 @@
 
 .centerbar {
   margin: 3px;
+  color: $text;
   background: $surface0;
   padding: 0px 15px 0px 15px;
   border-radius: 10px;
@@ -34,6 +35,9 @@
 }
 
 .workspace-entry {
+  * {
+    $color: $text;
+  }
 }
 
 .empty {
@@ -41,7 +45,7 @@
 }
 
 .current {
-  color: $peach;
+  color: $primary;
 }
 
 .leftbar {
@@ -54,7 +58,7 @@
     border-width: 2px;
     border-style: solid;
     border-color: $crust;
-    color: $peach;
+    color: $primary;
   }
 }
 
@@ -75,7 +79,7 @@
 .metric scale trough {
   all: unset;
   //background-color: #323232;
-  background-color: $blue;
+  background-color: $secondary;
   border-radius: 50px;
   min-height: 3px;
   min-width: 30px;
@@ -86,7 +90,7 @@
   all: unset;
   //background-color: #D35D6E;
   background-color: $text;
-  color: $flamingo;
+  color: $ternary;
   border-radius: 4px;
 }
 
@@ -103,19 +107,20 @@
   .item {
     background: $surface1;
     border-radius: 4px;
+    color: $text;
   }
 
   .item:hover {
-    background: $text;
-    color: $surface0;
+    background: $surface1;
+    border-color: $text;
     border-radius: 4px;
     
   }
 
   .active-workspace {
-    background: $peach;
-    color: $surface0;
+    background: $surface1;
     border-radius: 4px;
+    border-color: $primary;
   }
 
 }
@@ -127,23 +132,30 @@
   .item {
     background: $surface0;
     border-radius: 4px;
+    border-style: solid;
+    border-color: $surface0;
+    color: $text;
   }
 
   .item:hover {
-    background: $text;
-    color: $surface0;
+    background: $surface0;
+    border-width: 4px;
+    border-style: solid;
+    border-color: $text;
     border-radius: 4px;
     
   }
 
   .active-workspace {
-    background: $peach;
-    color: $surface0;
+    background: $surface1;
+    border-width: 4px;
+    border-style: solid;
     border-radius: 4px;
+    border-color: $subtext1;
   }
 
   .today {
-    color: $peach;
+    color: $primary;
     border-radius: 4px;
   }
 
@@ -151,7 +163,7 @@
     background: rgba(0, 0, 0, 0);
 
     .lock {
-      background-image: image(url("/home/sergi/.config/eww/images/lock.png"), $peach);
+      background-image: image(url("/home/sergi/.config/eww/images/lock.png"), $primary);
       background-size: auto 100px;
       background-repeat: no-repeat;
       background-position: center;
@@ -160,14 +172,14 @@
     
     .lock:hover {
       background: $text;
-      background-image: image(url("/home/sergi/.config/eww/images/lock-hover.png"), $peach);
+      background-image: image(url("/home/sergi/.config/eww/images/lock-hover.png"), $primary);
       background-size: auto 100px;
       background-repeat: no-repeat;
       background-position: center;
     }
 
      .power-off {
-      background-image: image(url("/home/sergi/.config/eww/images/power-off.png"), $peach);
+      background-image: image(url("/home/sergi/.config/eww/images/power-off.png"), $primary);
       background-size: auto 100px;
       background-repeat: no-repeat;
       background-position: center;
@@ -176,7 +188,7 @@
     
     .power-off:hover {
       background: $text;
-      background-image: image(url("/home/sergi/.config/eww/images/power-off-hover.png"), $peach);
+      background-image: image(url("/home/sergi/.config/eww/images/power-off-hover.png"), $primary);
       background-size: auto 100px;
       background-repeat: no-repeat;
       background-position: center;
@@ -184,7 +196,7 @@
 
 
     .suspend {
-      background-image: image(url("/home/sergi/.config/eww/images/suspend.png"), $peach);
+      background-image: image(url("/home/sergi/.config/eww/images/suspend.png"), $primary);
       background-size: auto 100px;
       background-repeat: no-repeat;
       background-position: center;
@@ -193,7 +205,7 @@
     
     .suspend:hover {
       background: $text;
-      background-image: image(url("/home/sergi/.config/eww/images/suspend-hover.png"), $peach);
+      background-image: image(url("/home/sergi/.config/eww/images/suspend-hover.png"), $primary);
       background-size: auto 100px;
       background-repeat: no-repeat;
       background-position: center;
@@ -201,7 +213,7 @@
 
 
     .reboot {
-      background-image: image(url("/home/sergi/.config/eww/images/reboot.png"), $peach);
+      background-image: image(url("/home/sergi/.config/eww/images/reboot.png"), $primary);
       background-size: auto 100px;
       background-repeat: no-repeat;
       background-position: center;
@@ -210,14 +222,14 @@
     
     .reboot:hover {
       background: $text;
-      background-image: image(url("/home/sergi/.config/eww/images/reboot-hover.png"), $peach);
+      background-image: image(url("/home/sergi/.config/eww/images/reboot-hover.png"), $primary);
       background-size: auto 100px;
       background-repeat: no-repeat;
       background-position: center;
     }
 
     .logout {
-      background-image: image(url("/home/sergi/.config/eww/images/logout.png"), $peach);
+      background-image: image(url("/home/sergi/.config/eww/images/logout.png"), $primary);
       background-size: auto 100px;
       background-repeat: no-repeat;
       background-position: center;
@@ -226,54 +238,55 @@
     
     .logout:hover {
       background: $text;
-      background-image: image(url("/home/sergi/.config/eww/images/logout-hover.png"), $peach);
+      background-image: image(url("/home/sergi/.config/eww/images/logout-hover.png"), $primary);
       background-size: auto 100px;
       background-repeat: no-repeat;
       background-position: center;
     }
 
     .item {
-      color: $peach;
+      color: $primary;
       background: $surface1;
     }
 
     .item:hover {
-      background: $peach;
+      background: $primary;
       color: $surface1;
     }
 
     .close {
       background: $red;
-      color: $overlay0;
+      color: $text;
       border-radius: 4px;
     }
 
     .close:hover {
       color: $red;
-      background: $overlay0;
+      background: $text;
       border-radius: 4px;
     }
   }
 
   .power-vertical {
-    background: $overlay1;
+    background: $surface0;
     color: $text;
     border-radius: 4px;
   }
 
   .calendar {
     padding: 10px;
-    background: $surface1;
+    background: $surface0;
     border-radius: 4px;
     font: 32px "Cantarell Regular";
+    color: $text;
 
     .button {
-      color: $peach;
+      color: $primary;
     font: 32px "Cantarell Regular";
     }
 
     :selected {
-      color: $peach;
+      color: $primary;
     }
 
     .highlight {
@@ -281,7 +294,7 @@
     }
 
     :backdrop {
-      color: $green;
+      color: $primary;
     }
 
     :indeterminate {
@@ -292,53 +305,13 @@
 
   .cool-date-time-gadget {
     padding: 10;
-    background: $surface1;
+    background: $surface0;
     border-radius: 4px;
-
-    .separator {
-      background: $pink;
-    }
-    .cool-time {
-      .hour {
-        font: 58px "Monospace";
-        color: $green;
-      }
-
-      .minute {
-        font: 58px "Monospace";
-        color: $lavender;
-      }
-
-      .dot {
-        font: 58px "Monospace";
-        color: $pink;
-      }
-    }
-
-    .cool-date {
-      .year {
-        font: 58px "Monospace";
-        color: $green;
-      }
-
-      .month {
-        font: 58px "Monospace";
-        color: $peach;
-      }
-
-      .day {
-        font: 58px "Monospace";
-        color: $lavender;
-      }
-
-      .dot {
-        font: 58px "Monospace";
-        color: $pink;
-      }
-    }
-
-    .today {
-      color: $peach;
+    border-width: 4px;
+    border-color: $text;
+    font: 58px "Monospace";
+    
+    .item {
       font: 58px "Monospace";
     }
   }

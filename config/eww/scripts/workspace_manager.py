@@ -11,15 +11,15 @@ Workspace = dict[str, str]
 @dto.dataclass
 class Window:
     classname: str
-    workspace: str
+    workspace: int
     id: str
 
 
 @dto.dataclass
 class State:
     active_window: str | None
-    active_workspace: str
-    workspaces: dict[str, 'Workspace']
+    active_workspace: int | None
+    workspaces: dict[int, "Workspace"]
     windows: dict[str, Window]
 
 
@@ -30,7 +30,7 @@ def parse_parameters(func):
     return f
 
 
-def open_window(id, work, classname, title, state: State):
+def open_window(id, work, classname, _, state: State):
     work = int(work)
     win = Window(classname=classname, workspace=work, id=id)
     state.workspaces[work][id] = classname
@@ -155,7 +155,6 @@ class TestFunctions(unittest.TestCase):
         self.assertEqual("5591d0ed14b0", state.active_window)
 
     def test_asdict(self):
-        
         expected = State(
             active_window=None,
             active_workspace=None,
@@ -189,7 +188,9 @@ class TestFunctions(unittest.TestCase):
         state = State(None, {}, {}, None)
         state = commands["activewindowv2"]("asdfasdf", state)
         self.assertEqual("asdfasdf", state.active_window)
-        state = commands["activewindowv2"](",", state)  # when no one is to focus it inputs this.
+        state = commands["activewindowv2"](
+            ",", state
+        )  # when no one is to focus it inputs this.
         self.assertEqual(None, state.active_window)
 
 

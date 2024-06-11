@@ -164,7 +164,7 @@
     :width 200
     (button 
       :class "close" 
-      :onclick "eww close control-center" 
+      :onclick "/home/sergi/.my-programs/eww close control-center" 
       "Close")
     (button
       :class "lock"
@@ -211,21 +211,21 @@
          :orientation "h"
          :space-evenly false
          :halign "center"
-      (label :text hour :class "hour")
-      (label :text "." :class "dot")
-      (label :text minute :class "minute")
+      (label :text hour :class "item")
+      (label :text "." :class "item")
+      (label :text minute :class "item")
     )
     (box :class "cool-date" 
          :orientation "h"
          :space-evenly false
          :halign "center"
-      (label :text year :class "year")
-      (label :text "-" :class "dot")
-      (label :text month :class "month")
-      (label :text "-" :class "dot")
-      (label :text day :class "day")
+      (label :text year :class "item")
+      (label :text "-" :class "item")
+      (label :text month :class "item")
+      (label :text "-" :class "item")
+      (label :text day :class "item")
     )
-    (label :text today :class "today")
+    (label :text today :class "item")
   )
 )
 (defwidget control-center-time [] 
@@ -234,9 +234,6 @@
     (calendar 
       :class "calendar" 
       :width 500
-      :day 22
-      :month 9      
-      :year 2023
       :show-details true
       :show-day-names true
       :show-week-numbers true
@@ -272,7 +269,16 @@
   (box :space-evenly false
   :spacing 15
     (control-center-time) 
-    (label :text "Pills" :class "item" :width 400)
+  (box :class "rightbar" 
+      :spacing 5 
+      :orientation "v" 
+      :space-evenly true 
+      :halign "center"  
+      :width 400
+    (network)
+    (audio)
+    (battery)
+    )
   )
 )
 

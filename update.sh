@@ -1,21 +1,17 @@
 #!/bin/fish
 #
-mkdir -p doom
 mkdir -p config
 mkdir -p config/BetterDiscord
 
 pacman -Qe > packages.txt
 
 set config ~sergi/.config
+rm -rf config  # Nuke config files
+mkdir config
 cp "$config/BetterDiscord/themes" config/BetterDiscord/ -r
-cp ~sergi/.doom.d/config.el ~sergi/.doom.d/custom.el ~sergi/.doom.d/init.el ~sergi/.doom.d/packages.el ~sergi/.doom.d/snippets ~sergi/.doom.d/themes doom -r
-mkdir -p config/spotify-tui
-cp ~sergi/.config/spotify-tui/config.yml ~sergi/.config/spotify-tui/frappe.yml ~sergi/.config/spotify-tui/latte.yml ~sergi/.config/spotify-tui/macchiato.yml ~sergi/.config/spotify-tui/mocha.yml config/spotify-tui
 
-mkdir -p config/nvim/lua/custom/
-cp "$config/nvim/lua/custom" "config/nvim/lua/custom" -r
-
-for f in fish helix hypr kitty mako pipewire rofi swaylock wallpapers wlogout eww fish kitty zathura;
+for f in fish helix hypr kitty mako pipewire rofi swaylock wallpapers wlogout eww fish kitty zathura doom 'spotify-tui' nvim;
+    mkdir "config/$f"
     cp "$config/$f" "config" -r
 end
 

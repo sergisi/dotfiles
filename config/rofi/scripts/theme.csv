@@ -1,0 +1,5 @@
+latte, bash /home/sergi/.config/palm-scheme/script.sh latte
+frappe, bash /home/sergi/.config/palm-scheme/script.sh frappe
+mocha, bash /home/sergi/.config/palm-scheme/script.sh mocha
+macchiato, bash /home/sergi/.config/palm-scheme/script.sh macchiato
+gruvbox-light, bash /home/sergi/.config/palm-scheme/script.sh gruvbox-light
